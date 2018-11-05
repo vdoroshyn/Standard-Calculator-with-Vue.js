@@ -28,14 +28,14 @@ export default {
   data() {
     return {
       previous: null,
-      current: "",
+      current: "0",
       operator: null,
       operatorClicked: false
     };
   },
   methods: {
     clear() {
-      this.current = "";
+      this.current = "0";
       this.operator = null;
       this.previous = null;
       this.operatorClicked = false;
@@ -44,9 +44,9 @@ export default {
       /*
       **fixed the bug with empty string's sign
       */
-      if (this.current === "") {
-        this.current = "0";
-      }
+      // if (this.current === "") {
+      //   this.current = "0";
+      // }
       this.current =
         this.current.charAt(0) === "-"
           ? this.current.slice(1)
@@ -55,37 +55,61 @@ export default {
     percent() {
       this.current = `${parseFloat(this.current) / 100}`;
     },
-    append(number) {
-      if (this.operatorClicked === true) {
-        this.current = "";
-        this.operatorClicked = false;
+    deleteLeadingZeroes(number) {
+      let isNegative = false;
+
+      if (number.charAt(0) === "-") {
+        isNegative = true;
+        number = number.slice(1);
       }
+
+      if (
+        number.charAt(0) === "0" &&
+        number.length > 1 &&
+        number.charAt(1) !== "."
+      ) {
+        number = number.slice(1);
+      }
+
+      return isNegative === true ? `${"-"}${number}` : number;
+    },
+    append(number) {
+      // if (this.operatorClicked === true) {
+      //   this.current = "";
+      //   this.operatorClicked = false;
+      // }
       this.current = `${this.current}${number}`;
+      this.current = this.deleteLeadingZeroes(this.current);
     },
     dot() {
       if (this.current.indexOf(".") === -1) {
         this.append(".");
       }
     },
-    setPrevious() {
-      this.operatorClicked = true;
-      this.previous = this.current;
-    },
+    // isMathDoneWithoutEquals() {
+    //   if (this.previous && this.current) {
+    //     this.equals();
+    //     this.setPrevious();
+    //     return true;
+    //   }
+
+    //   return false;
+    // },
+    // setPrevious() {
+    //   this.operatorClicked = true;
+    //   this.previous = this.current;
+    // },
     division() {
       this.operator = (a, b) => a / b;
-      this.setPrevious();
     },
     multiplication() {
       this.operator = (a, b) => a * b;
-      this.setPrevious();
     },
     substraction() {
       this.operator = (a, b) => a - b;
-      this.setPrevious();
     },
     addition() {
       this.operator = (a, b) => a + b;
-      this.setPrevious();
     },
     equals() {
       this.current = `${this.operator(
@@ -98,7 +122,6 @@ export default {
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .calculator {
   margin: 0 auto;
