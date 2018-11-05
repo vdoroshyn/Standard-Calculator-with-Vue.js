@@ -35,5 +35,6 @@ npm run lint
 #bugs to fix
 #1)display when there more characters than needed
 #2)floor/round
-#3)leading zeroes in numbers
-#4)calculations by using operators and not equals
+#3)leading zeroes in numbers - done
+#4)calculations by using operators and not equals - done
+#5) logic has to be redone - almost there

@@ -36,17 +36,11 @@ export default {
   methods: {
     clear() {
       this.current = "0";
-      this.operator = null;
       this.previous = null;
+      this.operator = null;
       this.operatorClicked = false;
     },
     changeSign() {
-      /*
-      **fixed the bug with empty string's sign
-      */
-      // if (this.current === "") {
-      //   this.current = "0";
-      // }
       this.current =
         this.current.charAt(0) === "-"
           ? this.current.slice(1)
@@ -74,10 +68,11 @@ export default {
       return isNegative === true ? `${"-"}${number}` : number;
     },
     append(number) {
-      // if (this.operatorClicked === true) {
-      //   this.current = "";
-      //   this.operatorClicked = false;
-      // }
+      if (this.operatorClicked === true) {
+        this.previous = this.current;
+        this.current = "0";
+        this.operatorClicked = false;
+      }
       this.current = `${this.current}${number}`;
       this.current = this.deleteLeadingZeroes(this.current);
     },
@@ -86,37 +81,42 @@ export default {
         this.append(".");
       }
     },
-    // isMathDoneWithoutEquals() {
-    //   if (this.previous && this.current) {
-    //     this.equals();
-    //     this.setPrevious();
-    //     return true;
-    //   }
+    isMathDoneWithoutEquals() {
+      this.operatorClicked = true;
 
-    //   return false;
-    // },
-    // setPrevious() {
-    //   this.operatorClicked = true;
-    //   this.previous = this.current;
-    // },
+      if (this.operator) {
+        this.equals();
+        return true;
+      }
+
+      return false;
+    },
     division() {
+      this.isMathDoneWithoutEquals();
       this.operator = (a, b) => a / b;
     },
     multiplication() {
+      this.isMathDoneWithoutEquals();
       this.operator = (a, b) => a * b;
     },
     substraction() {
+      this.isMathDoneWithoutEquals();
       this.operator = (a, b) => a - b;
     },
     addition() {
+      this.isMathDoneWithoutEquals();
       this.operator = (a, b) => a + b;
     },
     equals() {
+      if (!this.previous || !this.current) {
+        return;
+      }
       this.current = `${this.operator(
         parseFloat(this.previous),
         parseFloat(this.current)
       )}`;
       this.previous = null;
+      this.operator = null;
     }
   }
 };
