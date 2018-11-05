@@ -30,7 +30,8 @@ export default {
       previous: null,
       current: "0",
       operator: null,
-      operatorClicked: false
+      operatorClicked: false,
+      doWeHaveResult: false
     };
   },
   methods: {
@@ -67,12 +68,20 @@ export default {
 
       return isNegative === true ? `${"-"}${number}` : number;
     },
-    append(number) {
+    checksBeforeAppend() {
       if (this.operatorClicked === true) {
-        this.previous = this.current;
         this.current = "0";
+        this.previous = this.current;
         this.operatorClicked = false;
+      } else if (this.doWeHaveResult && !this.operator) {
+        this.current = "0";
+        this.previous = null;
+        this.doWeHaveResult = false;
       }
+    },
+    append(number) {
+      this.checksBeforeAppend();
+
       this.current = `${this.current}${number}`;
       this.current = this.deleteLeadingZeroes(this.current);
     },
@@ -82,6 +91,9 @@ export default {
       }
     },
     isMathDoneWithoutEquals() {
+      /*
+      **added this line here not to repeat the same line in 4 places
+      */
       this.operatorClicked = true;
 
       if (this.operator) {
@@ -117,6 +129,7 @@ export default {
       )}`;
       this.previous = null;
       this.operator = null;
+      this.doWeHaveResult = true;
     }
   }
 };
