@@ -33,7 +33,7 @@ npm run lint
 ```
 
 #bugs to fix
-#1)display when there more characters than needed
+#1)display when there more characters than needed - done with overflow for now
 #2)floor/round
 #3)leading zeroes in numbers - done
 #4)calculations by using operators and not equals - done
