@@ -70,12 +70,12 @@ export default {
     },
     checksBeforeAppend() {
       if (this.operatorClicked === true) {
-        this.current = "0";
         this.previous = this.current;
+        this.current = "0";
         this.operatorClicked = false;
       } else if (this.doWeHaveResult && !this.operator) {
-        this.current = "0";
         this.previous = null;
+        this.current = "0";
         this.doWeHaveResult = false;
       }
     },
@@ -150,6 +150,7 @@ export default {
   grid-column: 1 / 5;
   background-color: #333;
   color: white;
+  overflow: auto;
 }
 
 .btn {
