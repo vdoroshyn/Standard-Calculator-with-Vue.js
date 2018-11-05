@@ -1,7 +1,3 @@
-# vue-skills
-
-testing @vue/cli with scm
-
 ## Project setup
 
 ```

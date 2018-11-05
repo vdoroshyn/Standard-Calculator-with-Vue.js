@@ -127,12 +127,10 @@ export default {
       **The number of string-number and vice versa casts is too big here
       **However, it was nevessary in order to fix the error of calculations
       */
-      this.current = +this.operator(
+      this.current = (+this.operator(
         parseFloat(this.previous),
         parseFloat(this.current)
-      )
-        .toFixed(10)
-        .toString();
+      ).toFixed(10)).toString();
 
       this.previous = null;
       this.operator = null;
