@@ -1,3 +1,7 @@
+```
+A  calculator written in Vue.js with the core functionality
+```
+
 ## Project setup
 
 ```
