@@ -123,10 +123,17 @@ export default {
       if (!this.previous || !this.current) {
         return;
       }
-      this.current = `${this.operator(
+      /*
+      **The number of string-number and vice versa casts is too big here
+      **However, it was nevessary in order to fix the error of calculations
+      */
+      this.current = +this.operator(
         parseFloat(this.previous),
         parseFloat(this.current)
-      )}`;
+      )
+        .toFixed(10)
+        .toString();
+
       this.previous = null;
       this.operator = null;
       this.doWeHaveResult = true;
