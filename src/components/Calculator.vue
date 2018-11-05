@@ -145,6 +145,11 @@ export default {
   cursor: pointer;
 }
 
+.btn:active {
+  box-shadow: 0 2px #666;
+  transform: translateY(2px);
+}
+
 .operator {
   background-color: orange;
   color: white;
