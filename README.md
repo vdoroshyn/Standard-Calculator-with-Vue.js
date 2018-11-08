@@ -13,3 +13,8 @@ npm install
 ```
 npm run serve
 ```
+
+```
+Preview the project on github pages. Please be aware, that there are still some bugs
+https://vdoroshyn.github.io/Standard-Calculator-with-Vue_js/
+```
